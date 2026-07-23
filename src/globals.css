@@ -1,0 +1,150 @@
+@reference "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 1. VARIÁVEIS DE TEMA E CONFIGURAÇÕES BASE */
+@layer base {
+  :root {
+    --background: #050507;
+    --foreground: #f4f4f5;
+
+    /* Design Tokens para Glassmorphism e Iluminação */
+    --glass-bg: rgba(9, 9, 11, 0.55);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-border-hover: rgba(255, 255, 255, 0.18);
+    --glass-reflection: rgba(255, 255, 255, 0.15);
+    --glow-spotlight: radial-gradient(
+      circle at 75% 25%,
+      rgba(255, 255, 255, 0.35) 0%,
+      rgba(255, 255, 255, 0.05) 40%,
+      transparent 70%
+    );
+  }
+
+  html,
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family:
+      'Inter',
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Arial,
+      sans-serif;
+    scroll-behavior: smooth;
+    overscroll-behavior-y: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Estilização da Seleção de Texto */
+  ::selection {
+    @apply bg-white/20 text-white;
+  }
+
+  /* Scrollbar Customizada Dark Premium */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-zinc-800/80 rounded-full border border-transparent bg-clip-padding transition-colors;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-zinc-600;
+  }
+
+  /* Correção do fundo amarelo/azul do Autofill no Chrome/Safari em temas escuros */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #121215 inset !important;
+    -webkit-text-fill-color: #ffffff !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+}
+
+/* 2. COMPONENTES REUTILIZÁVEIS DE GLASSMORPHISM */
+@layer components {
+  /* Painel de Vidro Principal */
+  .glass-card {
+    background-color: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    @apply backdrop-blur-3xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9),inset_0_1px_1px_rgba(255,255,255,0.15)] transition-all duration-300;
+  }
+
+  .glass-card:hover {
+    border-color: var(--glass-border-hover);
+  }
+
+  /* Input de Vidro */
+  .glass-input {
+    @apply w-full rounded-2xl border border-white/10 bg-zinc-900/50 px-4 py-3 text-xs text-white placeholder-zinc-500 outline-none transition-all duration-200 focus:border-white/30 focus:bg-zinc-900/80 focus:ring-2 focus:ring-white/10 shadow-inner;
+  }
+
+  /* Botão Secundário de Vidro */
+  .glass-button {
+    @apply rounded-2xl border border-white/10 bg-zinc-900/40 py-3 px-4 text-xs font-medium text-zinc-300 hover:bg-zinc-800/60 hover:border-white/20 hover:text-white transition-all duration-300 active:scale-[0.98];
+  }
+
+  /* Efeito Feixe de Luz (Spotlight) */
+  .spotlight-beam {
+    background: var(--glow-spotlight);
+    transform: rotate(-20deg);
+    filter: blur(40px);
+    mix-blend-mode: screen;
+    pointer-events: none;
+  }
+}
+
+/* 3. UTILITÁRIOS E ANIMAÇÕES */
+@layer utilities {
+  /* Texto com Gradiente Metálico */
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-zinc-200 to-zinc-500;
+  }
+
+  /* Animações Fluídas */
+  .animate-fadeIn {
+    animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-pulseGlow {
+    animation: pulseGlow 4s ease-in-out infinite alternate;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes pulseGlow {
+    0% {
+      opacity: 0.25;
+      transform: scale(0.98);
+    }
+    100% {
+      opacity: 0.45;
+      transform: scale(1.02);
+    }
+  }
+}

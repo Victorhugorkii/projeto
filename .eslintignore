@@ -1,0 +1,8 @@
+node_modules
+.next
+package-lock.json
+postcss.config.js
+next.config.mjs
+next-env.d.ts
+**/*.config.js
+**/*.config.cjs
